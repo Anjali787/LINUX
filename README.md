@@ -89,5 +89,5 @@
         drwxrws--- 2 root projekti 4096 Jan 30 16:02 /opt/projekti
 
 ### Here is the screenshots of the practical.
-![alt text](image-1.png)
-![alt text](image-2.png)
+![alt text](image-3.png)
+![alt text](image-4.png)
