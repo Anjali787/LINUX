@@ -91,3 +91,184 @@
 ### Here is the screenshots of the practical.
 ![alt text](image-3.png)
 ![alt text](image-4.png)
+
+# APT Package Management Assignment
+
+## Part 1: Understanding APT & System Updates
+
+### 1. Check APT Version
+```sh
+apt --version
+```
+**Output:**
+![alt text](image-5.png)
+
+### 2. Update the Package List
+```sh
+sudo apt update
+```
+![update](image-6.png)
+**Explanation:**  
+Why Update the Package List?
+- Fetches the latest software info from repositories.
+- Ensures access to new versions, security patches, and dependencies.
+
+### 3. Upgrade Installed Packages
+```sh
+sudo apt upgrade -y
+```
+![upgrade](image-8.png)
+**Difference between `update` and `upgrade`:**  
+- `update` Refreshes the list of available packages.
+
+- `upgrade`: Installs the latest versions of installed packages.
+
+### 4. View Pending Updates
+```sh
+apt list --upgradable
+```
+**Pending Updates:**  
+![upgradeable](image-7.png)
+
+## Part 2: Installing & Managing Packages
+
+### 1. Search for a Package
+```sh
+apt search image editor
+```
+**Selected Package:**  
+- Though, there are many packages but that doesn't fit in the screenshot :)
+![alt text](image-9.png)
+
+### 2. View Package Details
+```sh
+apt show drawing
+```
+**Dependencies:**  
+![alt text](image-10.png)
+
+### 3. Install the Package
+```sh
+sudo apt install drawing -y
+```
+**Confirmation of Installation:**  
+![alt text](image-11.png)
+![alt text](image-12.png)
+
+### 4. Check Installed Package Version
+```sh
+apt list --installed | grep drawing
+```
+**Installed Version:**  
+![alt text](image-13.png)
+
+
+
+## Part 3: Removing & Cleaning Packages
+
+### 1. Uninstall the Package
+```sh
+sudo apt remove drawing -y
+```
+**Is the package fully removed?**  
+![alt text](image-14.png)
+### 2. Remove Configuration Files
+```sh
+sudo apt purge drawing -y
+```
+![alt text](image-15.png)
+
+**Difference between `remove` and `purge`:**  
+- `remove` Uninstalls the package but keeps configuration files.
+- `purge` Uninstalls the package and removes its configuration files.
+### 3. Remove Unnecessary Dependencies
+```sh
+sudo apt autoremove -y
+```
+![alt text](image-16.png)
+**Why is this step important?**  
+It removes unused dependencies that were installed alongside a package but are no longer needed, freeing up disk space.
+
+### 4. Clean Up Downloaded Package Files
+```sh
+sudo apt clean
+```
+
+**What does this command do?**  
+It deletes all downloaded `.deb` files from `/var/cache/apt/archives`, freeing up space.
+
+
+## Part 4: Managing Repositories & Troubleshooting
+
+### 1. List APT Repositories
+```sh
+cat /etc/apt/sources.list
+```
+**Observations:**  
+![alt text](image-17.png)
+### **What’s in `/etc/apt/sources.list`?**
+
+- Contains **repository URLs** where software packages are stored.  
+- Includes **distribution codenames** (e.g., `focal` for Ubuntu 20.04).  
+- Lists **components** like `main`, `universe`, `restricted`, and `multiverse`.  
+- Defines **repository types**: `deb` (binary packages) and `deb-src` (source code).  
+
+
+### 2. Add a New Repository
+```sh
+sudo add-apt-repository universe
+sudo apt update
+```
+![alt text](image-18.png)
+**Types of Packages in Universe Repository:**  
+Community-maintained software, which may not receive the same level of support as main repository packages.
+
+### 3. Simulate an Installation Failure
+```sh
+sudo apt install fakepackage
+```
+**Error Message:**  
+![alt text](image-19.png)
+
+### 4. Troubleshooting Steps
+*Check the Package Name**:
+   - Make sure the package name is correct. Use:
+     ```bash
+     apt search <keyword>
+     ```
+     to find the right package.
+**Update the Package List**:
+   - Run:
+     ```bash
+     sudo apt update
+     ```
+     to refresh the list of available packages.
+
+3. **Check Repositories**:
+   - Ensure the required repository is enabled in `/etc/apt/sources.list`.
+   - Add the repository if needed:
+     ```bash
+     sudo add-apt-repository <repository-name>
+     sudo apt update
+     ```
+---
+
+## Bonus Challenge: Holding & Unholding Packages
+
+### 1. Hold a Package
+```sh
+sudo apt-mark hold drawing  
+```
+![alt text](image-22.png)
+### 2. Unhold a Package
+```sh
+sudo apt-mark unhold drawing
+```
+![alt text](image-23.png)
+
+**Why would you want to hold a package?**  
+This prevents the package from being upgraded.
+
+**Why would you want to unhold a package?**
+This allows the package to be upgraded again.
+#### Thank You :)
