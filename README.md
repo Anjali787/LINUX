@@ -272,3 +272,150 @@ This prevents the package from being upgraded.
 **Why would you want to unhold a package?**
 This allows the package to be upgraded again.
 #### Thank You :)
+
+
+# Virtualization
+
+## Part 1: Introduction to virtualization concepts
+
+1### 1. Virtualization  
+The process of creating virtual replicas of physical resources (OS, storage, or machines) to optimize hardware utilization.
+
+### 2. Hypervisor  
+Software that creates/manages **Virtual Machines (VMs)**, enabling multiple OSes to run on a single physical host.
+
+### 3. Virtual Machines (VMs)  
+Emulated computer systems that replicate physical hardware.  
+Example: Running Windows and Linux simultaneously on one machine.
+
+### 4. Containers  
+Lightweight, isolated environments that share the host OS kernel.  
+Key Advantage: Better resource efficiency than VMs.
+
+
+### 5. VMs vs Containers  
+| **Feature**       | **Virtual Machines**               | **Containers**                |
+|--------------------|-------------------------------------|--------------------------------|
+| Architecture       | Full OS + virtualized hardware      | Shared host OS kernel          |
+| Resource Usage     | High (dedicated resources)          | Lightweight                    |
+| Isolation          | Strong (separate OS instances)      | Moderate (shared kernel)       |
+| Scalability        | Full-system scaling                 | Granular microservice scaling  |
+
+---
+## Part 2: Working with Multipass
+
+1. multipass boot: Launch the default Ubuntu instance.
+2. multipass list: List all running instance.
+![alt text](image-24.png)
+3. multipass info: View details about a specific instance.
+![alt text](image-25.png)
+4. multipass shell: Access to the shell of a running instance.
+![alt text](image-26.png)
+5. multipass exec: Run the command on the instance.
+![alt text](image-27.png)
+
+- Cloud-init: 
+
+First of all, create a cloud-init.yaml file using command:
+
+        touch cloud-init.yaml
+
+then open that file and paste the following line and save it.
+
+        #cloud-config
+        package_update: true
+        packages:
+            - nginx
+
+Then, launch a new instance with this configuration:
+
+        multipass launch --name custom-instance --cloud-init cloud-init.yaml
+
+- Share files between host and instance
+
+        multipass mount /home/user/shared my-instance:/mnt/shared
+
+
+        multipass umount my-instance:/mnt/shared
+
+
+## Part 3: Exploring LXD
+
+### What is LXD?
+**LXD** (Linux Container Daemon) is a next-generation system container manager built on LXC (Linux Containers). It provides:
+- A user-friendly interface to manage system containers and VMs
+- Full Linux environment isolation on a single host
+- Lightweight alternative to traditional virtualization
+
+### Key Features
+-  Combines container speed with VM-like security
+-  Minimal overhead compared to full virtualization
+-  Supports both containers and virtual machines
+-  Secure by default with resource constraints
+
+- Installing:
+
+                sudo apt update
+                sudo apt install -y ldx
+
+
+                lxd --version
+
+                sudo lxd init
+
+                sudo usermod -aG lxd $USER
+                newgrp lxd
+
+                lxc launch images:ubuntu:24.04 anjali-container
+
+                lxc list
+
+
+- In the following screenshot, You can see the steps of how to run it.
+![alt text](image-28.png)
+![alt text](image-29.png)
+
+
+## Part 4: How to Stick Apps with Docker
+
+- Installation:
+
+!![alt text](image-30.png)
+
+
+
+
+
+
+
+-Basic Docker Concepts
+
+1. Images: Read-only templates used to create containers.
+
+2. Containers: Running instances of Docker images.
+
+3. Dockerfiles: Scripts that gives instruction on how to build a Docker image.
+
+- Experiment
+
+![alt text](image-31.png)
+![alt text](image-32.png)
+![alt text](image-34.png)
+
+## Part 5: Snaps for Self-Contained Applications
+
+- Creating a Basic Snap
+
+![alt text](image-33.png)
+
+- After that run the following commands:
+
+                snapcraft
+
+                sudo snap install my-app_1.0_amd64.snap --dangerous
+
+- This will create a file that contain our code:
+
+                hello-world.py
+
+- It will show the output of the file:
