@@ -14,7 +14,7 @@
 # GitHub Configuration  
 1. Created a new repository named **"LINUX"** for the assignment.  
 2. Added my HAMK email address as a secondary email to my GitHub account for version control.  
-![mail](image.png)
+![mail](img/image.png)
 
 
 
@@ -372,7 +372,7 @@ Then, launch a new instance with this configuration:
 
 
 - In the following screenshot, You can see the steps of how to run it.
-![alt text](image-28.png)
+![alt text](image/image-28.png)
 ![alt text](image-29.png)
 
 
